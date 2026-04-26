@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Light Mode ─────────────────────────────── */
+:root {
+  --color-bg:            #F8FAFC;
+  --color-surface:       rgba(255, 255, 255, 0.85);
+  --color-surface-solid: #FFFFFF;
+  --color-primary:       #0F766E;
+  --color-primary-light: #0D9488;
+  --color-accent:        #14B8A6;
+  --color-text:          #0F172A;
+  --color-text-muted:    #475569;
+  --color-border:        rgba(15, 23, 42, 0.10);
+  --color-teal-glow:     rgba(15, 118, 110, 0.12);
+  --hero-from:           #F0FDFA;
+  --hero-mid:            #ECFDF5;
+  --hero-to:             #F8FAFC;
+  --crystal-color:       rgba(15, 118, 110, 0.15);
+}
+
+/* ─── Dark Mode ──────────────────────────────── */
+.dark {
+  --color-bg:            #020617;
+  --color-surface:       rgba(15, 23, 42, 0.85);
+  --color-surface-solid: #0F172A;
+  --color-primary:       #2DD4BF;
+  --color-primary-light: #5EEAD4;
+  --color-accent:        #5EEAD4;
+  --color-text:          #F1F5F9;
+  --color-text-muted:    #94A3B8;
+  --color-border:        rgba(241, 245, 249, 0.08);
+  --color-teal-glow:     rgba(45, 212, 191, 0.12);
+  --hero-from:           #020617;
+  --hero-mid:            #0a1f1a;
+  --hero-to:             #020617;
+  --crystal-color:       rgba(45, 212, 191, 0.12);
+}
+
+/* ─── Base Styles ────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ─── Scrollbar ──────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
+
+/* ─── Selection ──────────────────────────────── */
+::selection { background: rgba(20, 184, 166, 0.25); color: inherit; }
+
+/* ─── Gradient Shift ─────────────────────────── */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+.animate-gradient-shift { animation: gradientShift 10s ease infinite; background-size: 300% 300%; }
+
+/* ─── Letter Mask Reveal ─────────────────────── */
+.word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  line-height: 1.15;
+}
+
+/* ─── Glass Surface ──────────────────────────── */
+.glass {
+  background: var(--color-surface);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid var(--color-border);
+}
+
+/* ─── Gradient Borders ───────────────────────── */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--color-accent), transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ─── Perspective Utility ────────────────────── */
+.perspective-1000 { perspective: 1000px; }
+.preserve-3d { transform-style: preserve-3d; }
