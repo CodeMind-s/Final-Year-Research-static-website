@@ -80,7 +80,7 @@ export default function AboutPage() {
             </div>
             <div>
               <p className="text-xs text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">Publication</p>
-              <p className="text-sm text-slate-900 dark:text-slate-100 font-semibold">ICHORA 2026 — Accepted</p>
+              <p className="text-sm text-slate-900 dark:text-slate-100 font-semibold">ICHORA 2026 - Accepted</p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Project ID: 25-26J-431 &nbsp;·&nbsp; Paper ID: 230</p>
             </div>
           </div>

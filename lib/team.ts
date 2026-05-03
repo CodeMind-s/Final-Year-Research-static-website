@@ -4,6 +4,7 @@ export interface TeamMember {
   role: string;
   email: string;
   initials: string;
+  image: string;
 }
 
 export interface Supervisor {
@@ -17,30 +18,34 @@ export const teamMembers: TeamMember[] = [
   {
     name: "Ansar T D",
     studentId: "IT22893734",
-    role: "Compass — Market Intelligence",
+    role: "Compass - Market Intelligence",
     email: "it22893734@my.sliit.lk",
     initials: "AT",
+    image: "/images/thimesha.jpeg",
   },
   {
     name: "Sirimanna RDIB",
     studentId: "IT22308016",
-    role: "Crystal — Crystallization Forecasting",
+    role: "Crystal - Crystallization Forecasting",
     email: "it22308016@my.sliit.lk",
     initials: "SR",
+    image: "/images/indu.jpeg",
   },
   {
     name: "Arshaq MJM",
     studentId: "IT22346322",
-    role: "Vision — Quality Control",
+    role: "Vision - Quality Control",
     email: "it22346322@my.sliit.lk",
     initials: "AM",
+    image: "/images/arsh.jpeg",
   },
   {
     name: "Perumbuli PGRMD",
     studentId: "IT22354310",
-    role: "Valor — Federated Waste Valorization",
+    role: "Valor - Federated Waste Valorization",
     email: "it22354310@my.sliit.lk",
     initials: "PP",
+    image: "/images/randini.jpeg",
   },
 ];
 

@@ -47,7 +47,7 @@ export function Footer() {
         <div className="mt-8 pt-6 border-t border-slate-200/60 dark:border-slate-800/60">
           <p className="text-xs text-slate-400 dark:text-slate-600 text-center">
             BrineX &copy; 2026 &nbsp;·&nbsp; SLIIT Faculty of Computing &nbsp;·&nbsp;
-            Project ID: 25-26J-431 &nbsp;·&nbsp; ICHORA 2026 — Paper ID: 230
+            Project ID: 25-26J-431 &nbsp;·&nbsp; ICHORA 2026 - Paper ID: 230
           </p>
         </div>
       </div>

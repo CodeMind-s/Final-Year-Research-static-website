@@ -15,10 +15,12 @@ export default function DocumentsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {documents.map((doc, i) => (
           <DocumentCard
-            key={doc.filename}
+            key={doc.title}
             title={doc.title}
             type={doc.type}
             filename={doc.filename}
+            subDocuments={doc.subDocuments}
+            subDocumentsHeading={doc.subDocumentsHeading}
             index={i}
           />
         ))}

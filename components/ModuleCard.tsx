@@ -2,7 +2,7 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { LucideIcon } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface ModuleCardProps {
   icon: LucideIcon;
@@ -22,6 +22,8 @@ export function ModuleCard({
   index,
 }: ModuleCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
   const rotateX = useSpring(useTransform(rawY, [-1, 1], [8, -8]), { stiffness: 200, damping: 25 });
@@ -44,8 +46,8 @@ export function ModuleCard({
   return (
     <motion.div
       className="perspective-1000"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={mounted ? { opacity: 0, y: 40 } : false}
+      whileInView={mounted ? { opacity: 1, y: 0 } : undefined}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
     >

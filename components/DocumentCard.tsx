@@ -1,14 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FileText, ExternalLink } from "lucide-react";
-import type { DocType } from "@/lib/documents";
+import { FileText, ExternalLink, FileIcon, PlayCircle, Link as LinkIcon } from "lucide-react";
+import type { DocType, SubDocument } from "@/lib/documents";
 
 interface DocumentCardProps {
   title: string;
   type: DocType;
-  filename: string;
+  filename?: string;
   index: number;
+  subDocuments?: SubDocument[];
+  subDocumentsHeading?: string;
+}
+
+function subHref(sub: SubDocument): string {
+  if (sub.url) return sub.url;
+  return encodeURI(`/documents/${sub.filename ?? ""}`);
+}
+
+function SubIcon({ kind }: { kind?: SubDocument["kind"] }) {
+  if (kind === "video") return <PlayCircle size={11} className="text-slate-400 dark:text-slate-500 shrink-0" />;
+  if (kind === "link") return <LinkIcon size={11} className="text-slate-400 dark:text-slate-500 shrink-0" />;
+  return <FileIcon size={11} className="text-slate-400 dark:text-slate-500 shrink-0" />;
 }
 
 const typeColors: Record<DocType, string> = {
@@ -18,7 +31,7 @@ const typeColors: Record<DocType, string> = {
   Publication: "bg-purple-50 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 border-purple-300 dark:border-purple-700",
 };
 
-export function DocumentCard({ title, type, filename, index }: DocumentCardProps) {
+export function DocumentCard({ title, type, filename, index, subDocuments, subDocumentsHeading }: DocumentCardProps) {
   return (
     <motion.div
       className="glass backdrop-blur-sm rounded-2xl p-5 border border-slate-200/60 dark:border-slate-700/50 group flex flex-col gap-4"
@@ -40,23 +53,48 @@ export function DocumentCard({ title, type, filename, index }: DocumentCardProps
           <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 leading-snug">{title}</p>
         </div>
       </div>
+      {subDocuments && subDocuments.length > 0 && (
+        <div className="border-t border-slate-200/60 dark:border-slate-700/50 pt-3 mt-1">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
+            {subDocumentsHeading ?? "Related Documents"}
+          </p>
+          <ul className="flex flex-col gap-1.5">
+            {subDocuments.map((sub) => (
+              <li key={sub.url ?? sub.filename ?? sub.label}>
+                <a
+                  href={subHref(sub)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors group/sub"
+                >
+                  <SubIcon kind={sub.kind} />
+                  <span className="truncate flex-1">{sub.label}</span>
+                  <ExternalLink size={10} className="opacity-0 group-hover/sub:opacity-100 transition-opacity shrink-0" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <div className="flex items-center justify-between mt-auto">
         <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full border ${typeColors[type]}`}>
           {type}
         </span>
-        <motion.a
-          href={`/documents/${filename}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1.5 text-xs font-semibold text-teal-600 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-300 transition-colors"
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.97 }}
-        >
-          View
-          <motion.span whileHover={{ rotate: 45 }} transition={{ duration: 0.2 }}>
-            <ExternalLink size={12} />
-          </motion.span>
-        </motion.a>
+        {filename && (
+          <motion.a
+            href={encodeURI(`/documents/${filename}`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-xs font-semibold text-teal-600 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-300 transition-colors"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            View
+            <motion.span whileHover={{ rotate: 45 }} transition={{ duration: 0.2 }}>
+              <ExternalLink size={12} />
+            </motion.span>
+          </motion.a>
+        )}
       </div>
     </motion.div>
   );

@@ -52,9 +52,21 @@ function MilestoneNode({ milestone, index }: { milestone: Milestone; index: numb
             {milestone.title}
           </p>
           <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">{milestone.date}</p>
-          <span className={`inline-block mt-2 text-xs font-medium px-2 py-0.5 rounded-full border ${cfg.badge}`}>
-            {milestone.status}
-          </span>
+          {milestone.description && (
+            <p className={`text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed ${isLeft ? "md:text-right" : ""}`}>
+              {milestone.description}
+            </p>
+          )}
+          <div className={`flex items-center gap-2 mt-2 flex-wrap ${isLeft ? "md:justify-end" : ""}`}>
+            <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full border ${cfg.badge}`}>
+              {milestone.status}
+            </span>
+            {milestone.marks && milestone.marks !== "—" && (
+              <span className="inline-block text-xs font-mono font-semibold px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300">
+                {milestone.marks}
+              </span>
+            )}
+          </div>
         </motion.div>
       </div>
 
@@ -83,7 +95,7 @@ export function MilestoneTimeline({ milestones }: MilestoneTimelineProps) {
 
   return (
     <div ref={containerRef} className="relative">
-      {/* ── Animated SVG spine — absolutely centered ── */}
+      {/* ── Animated SVG spine - absolutely centered ── */}
       <div className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-px pointer-events-none z-0">
         <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1 100"
           style={{ display: "block" }}>

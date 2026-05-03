@@ -1,26 +1,30 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { PageTransition } from "@/components/PageTransition";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+  preload: true,
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+  weight: ["400", "500", "600"],
+  preload: false,
 });
 
 export const metadata: Metadata = {
-  title: "BrineX — Integrated Climate-Intelligent Salt Production Ecosystem",
+  title: "BrineX - Integrated Climate-Intelligent Salt Production Ecosystem",
   description:
-    "BrineX is an integrated AI platform for Sri Lanka's solar salt industry — production forecasting, market intelligence, real-time quality control, and federated waste valorization.",
+    "BrineX is an integrated AI platform for Sri Lanka's solar salt industry - production forecasting, market intelligence, real-time quality control, and federated waste valorization.",
   icons: { icon: "/favicon.svg" },
 };
 
@@ -32,11 +36,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+        className={`${inter.variable} ${jetBrainsMono.variable} font-sans antialiased min-h-screen`}
         style={{ background: "var(--color-bg)", color: "var(--color-text)" }}
       >
         <ThemeProvider>
-          <PageTransition />
           <Navbar />
           <main>{children}</main>
           <Footer />

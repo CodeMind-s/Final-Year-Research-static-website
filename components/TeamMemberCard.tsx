@@ -2,6 +2,7 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Mail } from "lucide-react";
+import Image from "next/image";
 import type { TeamMember } from "@/lib/team";
 import { useRef } from "react";
 
@@ -45,11 +46,23 @@ export function TeamMemberCard({ member, index }: TeamMemberCardProps) {
       whileHover={{ boxShadow: "0 20px 60px rgba(20,184,166,0.10)" }}
     >
       <motion.div
-        className="w-20 h-20 rounded-full bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center text-2xl font-bold text-white border-2 border-teal-400/40"
+        className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-teal-400/40 bg-gradient-to-br from-teal-500 to-teal-700"
         animate={{ scale: [1, 1.03, 1] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       >
-        {member.initials}
+        {member.image ? (
+          <Image
+            src={member.image}
+            alt={member.name}
+            fill
+            sizes="80px"
+            className="object-cover"
+          />
+        ) : (
+          <span className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-white">
+            {member.initials}
+          </span>
+        )}
       </motion.div>
       <div>
         <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base">{member.name}</h3>

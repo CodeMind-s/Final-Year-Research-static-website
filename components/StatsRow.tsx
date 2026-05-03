@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Stat {
   raw: string;
@@ -24,7 +24,7 @@ function RollingDigit({ digit, delay }: { digit: string; delay: number }) {
   const idx = digits.indexOf(digit);
 
   if (idx === -1) {
-    // Not a numeric digit (., %, +, etc.) — just render statically
+    // Not a numeric digit (., %, +, etc.) - just render statically
     return (
       <motion.span
         className="inline-block"
@@ -86,6 +86,8 @@ function AnimatedValue({ raw, prefix, suffix, triggerDelay }: {
 /* ── Stats Row ─────────────────────────────────── */
 export function StatsRow() {
   const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
@@ -96,8 +98,8 @@ export function StatsRow() {
           className="glass rounded-2xl p-6 text-center
                      border border-slate-200/60 dark:border-slate-700/50
                      shadow-glass"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={mounted ? { opacity: 0, y: 24 } : false}
+          whileInView={mounted ? { opacity: 1, y: 0 } : undefined}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
           whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 300 } }}

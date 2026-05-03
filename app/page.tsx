@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { HeroSection } from "@/components/HeroSection";
 import { ModuleCard } from "@/components/ModuleCard";
 import { StatsRow } from "@/components/StatsRow";
@@ -26,14 +27,14 @@ const modules = [
   {
     icon: Eye,
     name: "Vision",
-    description: "YOLOv8m real-time salt purity detection — 99.41% precision across 3 classes at ~45ms per frame.",
+    description: "YOLOv8m real-time salt purity detection - 99.41% precision across 3 classes at ~45ms per frame.",
     accentColor: "border-t-emerald-500 text-emerald-500",
     glowColor: "rgba(16,185,129,0.25)",
   },
   {
     icon: Layers,
     name: "Valor",
-    description: "FedSalt federated learning for privacy-preserving salt waste valorization — R²=0.904 on held-out data.",
+    description: "FedSalt federated learning for privacy-preserving salt waste valorization - R²=0.904 on held-out data.",
     accentColor: "border-t-green-500 text-green-500",
     glowColor: "rgba(34,197,94,0.25)",
   },
@@ -71,6 +72,9 @@ function SectionHeading({ title, sub }: { title: string; sub?: string }) {
 }
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   return (
     <div>
       <HeroSection />
@@ -121,8 +125,8 @@ export default function Home() {
             <motion.div
               key={i}
               className="grid grid-cols-2 border-b border-slate-100/80 dark:border-slate-800/60 last:border-0"
-              initial={{ opacity: 0, x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={mounted ? { opacity: 0, x: -16 } : false}
+              whileInView={mounted ? { opacity: 1, x: 0 } : undefined}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.45, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
             >

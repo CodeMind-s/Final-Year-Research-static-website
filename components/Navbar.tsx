@@ -44,12 +44,12 @@ export function Navbar() {
 
   return (
     <motion.nav
-      className={`fixed left-0 right-0 z-50 transition-all duration-300 ease-out
+      className={`fixed left-0 right-0 z-50 transition-[top,margin,background-color,border-color,box-shadow,border-radius] duration-300 ease-out
         ${isScrolled
-          ? "top-2 mx-3 sm:mx-6 rounded-2xl backdrop-blur-xl bg-white/80 dark:bg-slate-900/80 border border-slate-200/60 dark:border-slate-700/50 shadow-glass"
-          : "top-0 mx-0 bg-transparent"
+          ? "top-2 mx-3 sm:mx-6 rounded-2xl backdrop-blur-xl bg-white/80 dark:bg-slate-900/80 border border-slate-200/60 dark:border-slate-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+          : "top-0 mx-0 bg-transparent border border-transparent"
         }`}
-      initial={{ y: -64, opacity: 0 }}
+      initial={false}
       animate={{
         y: navState === "hidden" ? -80 : 0,
         opacity: navState === "hidden" ? 0 : 1,

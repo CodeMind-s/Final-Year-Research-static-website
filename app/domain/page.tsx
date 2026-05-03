@@ -36,12 +36,12 @@ const sections = [
     number: "01",
     title: "Literature Survey",
     content: [
-      "Solar salt production and climate variability in Sri Lanka — the Puttalam Salt Society (PSS) experienced a 40% production drop in 2023–24 due to climate disruption.",
+      "Solar salt production and climate variability in Sri Lanka - the Puttalam Salt Society (PSS) experienced a 40% production drop in 2023–24 due to climate disruption.",
       "LSTM and BiLSTM networks applied to agricultural time-series forecasting, demonstrating strong sequence modelling for weather-driven production cycles.",
-      "Statistical forecasting limitations of ARIMA and SARIMAX in causal data settings — motivating hybrid deep learning + regression approaches.",
+      "Statistical forecasting limitations of ARIMA and SARIMAX in causal data settings - motivating hybrid deep learning + regression approaches.",
       "Demand estimation in agri-commodity settings using yield ratio methods versus SARIMAX, highlighting advantages for transparent, explainable outputs.",
       "Computer vision in food and industrial quality grading: YOLO family models (YOLOv5→YOLOv8) applied to grain and mineral classification tasks.",
-      "Federated learning for privacy-preserving industrial AI — FedAvg and its variants applied to distributed sensor and operational data across geographically separated sites.",
+      "Federated learning for privacy-preserving industrial AI - FedAvg and its variants applied to distributed sensor and operational data across geographically separated sites.",
     ],
   },
   {
@@ -49,7 +49,7 @@ const sections = [
     title: "Research Gap",
     content: [
       "No data-driven decision support system exists for Sri Lankan solar salt production.",
-      "Operators use manual logbooks, informal price negotiation, and experience-based harvest timing — with no systematic data collection.",
+      "Operators use manual logbooks, informal price negotiation, and experience-based harvest timing - with no systematic data collection.",
       "No existing system integrates production forecasting with market intelligence, real-time quality control, and privacy-preserving collaborative learning for this domain.",
       "The unique microclimate dependency of crystallization parameters (salinity, pH, temperature, evaporation rate) has not been modelled at the pond level for PSS conditions.",
     ],
@@ -58,17 +58,17 @@ const sections = [
     number: "03",
     title: "Research Problem",
     content: [
-      "How can an integrated AI platform provide production forecasting, market intelligence, real-time quality control, and privacy-preserving collaborative learning for solar salt landowners in Puttalam, Sri Lanka — within a scalable, cloud-native microservices architecture?",
+      "How can an integrated AI platform provide production forecasting, market intelligence, real-time quality control, and privacy-preserving collaborative learning for solar salt landowners in Puttalam, Sri Lanka - within a scalable, cloud-native microservices architecture?",
     ],
   },
   {
     number: "04",
     title: "Research Objectives",
     content: [
-      "Crystal — Develop a dual-input BiLSTM + Linear Regression system to forecast daily crystallization parameters and monthly production volumes for PSS landowners.",
-      "Compass — Build a market intelligence engine delivering SARIMAX price forecasts, yield-ratio demand estimates, and transparent rule-based seller recommendations.",
-      "Vision — Design and deploy a YOLOv8m computer vision pipeline for real-time salt purity detection and quality grading at saltern sites.",
-      "Valor — Implement FedSalt, a federated learning framework for privacy-preserving salt waste valorization across distributed saltern operators.",
+      "Crystal - Develop a dual-input BiLSTM + Linear Regression system to forecast daily crystallization parameters and monthly production volumes for PSS landowners.",
+      "Compass - Build a market intelligence engine delivering SARIMAX price forecasts, yield-ratio demand estimates, and transparent rule-based seller recommendations.",
+      "Vision - Design and deploy a YOLOv8m computer vision pipeline for real-time salt purity detection and quality grading at saltern sites.",
+      "Valor - Implement FedSalt, a federated learning framework for privacy-preserving salt waste valorization across distributed saltern operators.",
     ],
   },
   {
@@ -76,10 +76,10 @@ const sections = [
     title: "Methodology",
     content: [
       "Two-stage AI forecasting architecture deployed on a cloud-native microservices platform.",
-      "Stage 1 — Crystal: BiLSTM processes 60-day sequences of 8 pond crystallization parameters + 14 weather features; Linear Regression with causal inputs calibrates daily outputs to monthly production volumes (R²=0.9732).",
-      "Stage 2 — Compass: Landowner-scaled production forecasts flow via gRPC→HTTP to the planning module; SARIMAX(1,1,1)(0,1,1,12) forecasts salt prices using 168 months of PSS historical data; yield ratio algorithm estimates per-landowner demand; rule-based ranking orders sellers by price_per_bag DESC.",
+      "Stage 1 - Crystal: BiLSTM processes 60-day sequences of 8 pond crystallization parameters + 14 weather features; Linear Regression with causal inputs calibrates daily outputs to monthly production volumes (R²=0.9732).",
+      "Stage 2 - Compass: Landowner-scaled production forecasts flow via gRPC→HTTP to the planning module; SARIMAX(1,1,1)(0,1,1,12) forecasts salt prices using 168 months of PSS historical data; yield ratio algorithm estimates per-landowner demand; rule-based ranking orders sellers by price_per_bag DESC.",
       "Vision runs in parallel: YOLOv8m ONNX inference on saltern images via NestJS microservice, achieving 99.41% precision at ~45ms per frame.",
-      "Valor — FedSalt uses FedAvg with Amazon SQS for asynchronous model weight aggregation across client salterns, preserving data privacy while achieving R²=0.904 on held-out test data.",
+      "Valor - FedSalt uses FedAvg with Amazon SQS for asynchronous model weight aggregation across client salterns, preserving data privacy while achieving R²=0.904 on held-out test data.",
     ],
   },
 ];
@@ -136,7 +136,7 @@ export default function DomainPage() {
           Research Domain
         </h1>
         <p className="leading-relaxed max-w-xl mx-auto text-slate-500 dark:text-slate-400">
-          Contextualizing BrineX within the existing body of knowledge — from climate-driven salt production to privacy-preserving federated AI.
+          Contextualizing BrineX within the existing body of knowledge - from climate-driven salt production to privacy-preserving federated AI.
         </p>
       </AnimatedSection>
 

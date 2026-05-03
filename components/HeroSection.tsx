@@ -3,17 +3,30 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ChevronDown, ArrowRight, BarChart2, Compass, Eye, Layers } from "lucide-react";
 import Link from "next/link";
-import { SaltCrystalBackground } from "./SaltCrystalBackground";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 import { MagneticButton } from "./MagneticButton";
+
+const SaltCrystalBackground = dynamic(
+  () => import("./SaltCrystalBackground").then((m) => m.SaltCrystalBackground),
+  { ssr: false }
+);
+
+function useMounted() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted;
+}
 
 /* ── Letter Mask Word ──────────────────────────── */
 function MaskWord({ word, delay, accent }: { word: string; delay: number; accent?: boolean }) {
+  const mounted = useMounted();
   return (
     <span className="word-mask mr-[0.22em]">
       <motion.span
         className={`inline-block ${accent ? "text-teal-500 dark:text-teal-400" : ""}`}
-        initial={{ y: "110%" }}
-        animate={{ y: 0 }}
+        initial={mounted ? { y: "110%" } : false}
+        animate={mounted ? { y: 0 } : undefined}
         transition={{ duration: 0.72, delay, ease: [0.76, 0, 0.24, 1] }}
       >
         {word}
@@ -36,6 +49,7 @@ const modules = [
 
 /* ── Refractive Glass Card ─────────────────────── */
 function RefractiveCard() {
+  const mounted = useMounted();
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
   const rotateX = useSpring(useTransform(rawY, [-1, 1], [12, -12]), { stiffness: 120, damping: 20 });
@@ -60,9 +74,9 @@ function RefractiveCard() {
         }}
         onMouseMove={onMove}
         onMouseLeave={() => { rawX.set(0); rawY.set(0); }}
-        initial={{ opacity: 0, y: 30, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        initial={mounted ? { opacity: 0, y: 30, scale: 0.95 } : false}
+        animate={mounted ? { opacity: 1, y: 0, scale: 1 } : undefined}
+        transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* Glass base */}
         <div className="glass rounded-2xl p-6 shadow-glass-lg border border-teal-500/10 dark:border-teal-400/10">
@@ -100,9 +114,9 @@ function RefractiveCard() {
                 className="flex items-center justify-between p-3 rounded-xl
                            bg-slate-50/80 dark:bg-slate-800/60
                            border border-slate-200/80 dark:border-slate-700/50"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.9 + i * 0.1 }}
+                initial={mounted ? { opacity: 0, x: 20 } : false}
+                animate={mounted ? { opacity: 1, x: 0 } : undefined}
+                transition={{ duration: 0.4, delay: 0.4 + i * 0.08 }}
               >
                 <div className="flex items-center gap-2.5">
                   <m.icon size={14} className={m.color} />
@@ -116,9 +130,9 @@ function RefractiveCard() {
           {/* Footer stat */}
           <motion.div
             className="pt-4 border-t border-slate-200/60 dark:border-slate-700/50 flex items-center justify-between"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 1.35 }}
+            initial={mounted ? { opacity: 0 } : false}
+            animate={mounted ? { opacity: 1 } : undefined}
+            transition={{ duration: 0.4, delay: 0.85 }}
           >
             <span className="text-xs text-slate-500 dark:text-slate-500">Stress tested</span>
             <span className="text-xs font-mono font-bold text-teal-600 dark:text-teal-400">
@@ -137,6 +151,7 @@ function RefractiveCard() {
 
 /* ── Hero ──────────────────────────────────────── */
 export function HeroSection() {
+  const mounted = useMounted();
   const wordDelay = (i: number) => 0.2 + i * 0.085;
 
   return (
@@ -166,8 +181,8 @@ export function HeroSection() {
           <div className="lg:col-span-7 space-y-8">
             {/* Badge */}
             <motion.div
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={mounted ? { opacity: 0, y: -12 } : false}
+              animate={mounted ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.5, delay: 0.1 }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full
                          glass border border-teal-500/20
@@ -177,7 +192,7 @@ export function HeroSection() {
               <span className="font-medium">Puttalam Salt Society × SLIIT</span>
             </motion.div>
 
-            {/* Heading — Letter Mask */}
+            {/* Heading - Letter Mask */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-bold tracking-tight leading-[1.1]
                            text-slate-900 dark:text-white">
               <div className="flex flex-wrap">
@@ -201,11 +216,11 @@ export function HeroSection() {
             <motion.p
               className="text-base sm:text-lg leading-relaxed max-w-xl
                          text-slate-600 dark:text-slate-300"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              initial={mounted ? { opacity: 0, y: 16 } : false}
+              animate={mounted ? { opacity: 1, y: 0 } : undefined}
+              transition={{ duration: 0.55, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              An integrated AI platform for Sri Lanka&apos;s solar salt industry — production
+              An integrated AI platform for Sri Lanka&apos;s solar salt industry - production
               forecasting, market intelligence, real-time quality control, and federated
               waste valorization.
             </motion.p>
@@ -213,9 +228,9 @@ export function HeroSection() {
             {/* CTA Buttons */}
             <motion.div
               className="flex flex-col sm:flex-row gap-4"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
+              initial={mounted ? { opacity: 0, y: 16 } : false}
+              animate={mounted ? { opacity: 1, y: 0 } : undefined}
+              transition={{ duration: 0.5, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
             >
               <MagneticButton>
                 <Link
@@ -245,9 +260,9 @@ export function HeroSection() {
             {/* Micro stat pills */}
             <motion.div
               className="flex flex-wrap gap-3 pt-2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.3 }}
+              initial={mounted ? { opacity: 0 } : false}
+              animate={mounted ? { opacity: 1 } : undefined}
+              transition={{ duration: 0.5, delay: 0.7 }}
             >
               {[
                 { label: "Production R²", value: "0.9732" },
@@ -268,7 +283,7 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          {/* ── Right Column — Refractive Card ── */}
+          {/* ── Right Column - Refractive Card ── */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="w-full max-w-sm lg:max-w-none">
               <RefractiveCard />
@@ -281,9 +296,9 @@ export function HeroSection() {
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1
                    text-slate-400 dark:text-slate-500"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
+        initial={mounted ? { opacity: 0 } : false}
+        animate={mounted ? { opacity: 1 } : undefined}
+        transition={{ delay: 1.0 }}
       >
         <span className="text-xs font-mono tracking-widest">SCROLL</span>
         <motion.div

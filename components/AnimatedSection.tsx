@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef, ReactNode } from "react";
+import { useRef, ReactNode, useState, useEffect } from "react";
 
 interface AnimatedSectionProps {
   children: ReactNode;
@@ -30,6 +30,11 @@ export const itemVariants = {
   },
 };
 
+/**
+ * Renders content visible by SSR (no opacity:0 baked in).
+ * Once mounted on the client, plays an entrance animation when scrolled into view.
+ * This avoids the "empty layout flash" while JS hydrates.
+ */
 export function AnimatedSection({
   children,
   className,
@@ -38,13 +43,16 @@ export function AnimatedSection({
   parallax = false,
 }: AnimatedSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const [mounted, setMounted] = useState(false);
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
+
+  useEffect(() => setMounted(true), []);
 
   const motionStyle = parallax ? { y: parallaxY } : undefined;
 
@@ -54,8 +62,8 @@ export function AnimatedSection({
         ref={ref}
         className={className}
         variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
+        initial={mounted ? "hidden" : false}
+        animate={mounted && isInView ? "visible" : undefined}
         style={motionStyle}
       >
         {children}
@@ -67,8 +75,8 @@ export function AnimatedSection({
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y: 28 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
+      initial={mounted ? { opacity: 0, y: 28 } : false}
+      animate={mounted && isInView ? { opacity: 1, y: 0 } : undefined}
       transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1], delay }}
       style={motionStyle}
     >
