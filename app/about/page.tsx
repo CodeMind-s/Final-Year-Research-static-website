@@ -2,6 +2,7 @@ import { AnimatedSection } from "@/components/AnimatedSection";
 import { TeamMemberCard } from "@/components/TeamMemberCard";
 import { teamMembers, supervisors } from "@/lib/team";
 import { Mail, Building2, FlaskConical } from "lucide-react";
+import Image from "next/image";
 
 export default function AboutPage() {
   return (
@@ -30,8 +31,20 @@ export default function AboutPage() {
         {supervisors.map((s, i) => (
           <AnimatedSection key={s.email} delay={i * 0.1}>
             <div className="glass rounded-2xl p-6 border border-slate-200/60 dark:border-slate-700/50 flex gap-4 items-start">
-              <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center shrink-0 text-teal-600 dark:text-teal-400 font-bold">
-                {s.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+              <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-teal-400/40 bg-slate-100 dark:bg-slate-700 shrink-0">
+                {s.image ? (
+                  <Image
+                    src={s.image}
+                    alt={s.name}
+                    fill
+                    sizes="48px"
+                    className="object-cover"
+                  />
+                ) : (
+                  <span className="absolute inset-0 flex items-center justify-center text-teal-600 dark:text-teal-400 font-bold">
+                    {s.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+                  </span>
+                )}
               </div>
               <div>
                 <p className="font-semibold text-slate-900 dark:text-slate-100">{s.name}</p>

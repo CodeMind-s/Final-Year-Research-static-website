@@ -57,10 +57,10 @@ const beforeAfter = [
 function SectionHeading({ title, sub }: { title: string; sub?: string }) {
   return (
     <AnimatedSection className="text-center mb-12" delay={0}>
-      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight
+      <h1 className="text-2xl sm:text-xl font-semibold tracking-tight
                      text-slate-900 dark:text-slate-100">
         {title}
-      </h2>
+      </h1>
       {sub && (
         <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm max-w-lg mx-auto">
           {sub}

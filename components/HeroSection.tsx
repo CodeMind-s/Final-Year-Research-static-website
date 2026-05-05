@@ -193,7 +193,7 @@ export function HeroSection() {
             </motion.div>
 
             {/* Heading - Letter Mask */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-bold tracking-tight leading-[1.1]
+            <h1 className="text-4xl sm:text-5xl font-semibold tracking-tighter leading-snug
                            text-slate-900 dark:text-white">
               <div className="flex flex-wrap">
                 {line1.map((w, i) => (

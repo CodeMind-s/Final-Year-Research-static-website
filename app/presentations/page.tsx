@@ -8,7 +8,7 @@ const presentations = [
   { title: "Proposal Presentation", date: "September 2025", href: "/presentations/Proposal_Presentation.pdf", upcoming: false },
   { title: "Progress Presentation I", date: "December 2025", href: "/presentations/Progress_Presentation_I.pdf", upcoming: false },
   { title: "Progress Presentation II", date: "March 2026", href: "/presentations/Progress_Presentation_II.pdf", upcoming: false },
-  { title: "Final Presentation", date: "June 2026", href: "#", upcoming: true },
+  { title: "Final Presentation", date: "June 2026", href: "/presentations/Final_Presentation.pdf", upcoming: false },
 ];
 
 export default function PresentationsPage() {
